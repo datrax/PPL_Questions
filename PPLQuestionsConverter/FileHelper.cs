@@ -11,16 +11,16 @@ public static class FileHelper
         WriteIndented = true
     };
 
-    public static void SaveToOutput(string outputFilePath, List<QuestionLine>? questions)
+    public static void SaveToOutput<T>(string outputFilePath,T questions)
     {
         string json = JsonSerializer.Serialize(questions, options).Replace("\\n", "").Replace(" \"", "\"");
 
         File.WriteAllText(outputFilePath, json, Encoding.Unicode);
     }
 
-    public static List<QuestionLine>? GetFromOutputFile(string outputFilePath)
+    public static T? GetFromOutputFile<T>(string outputFilePath)
     {
-        return JsonSerializer.Deserialize<List<QuestionLine>>(File.ReadAllText(outputFilePath, Encoding.Unicode), options);
+        return JsonSerializer.Deserialize<T>(File.ReadAllText(outputFilePath, Encoding.Unicode), options);
 
     }
 }

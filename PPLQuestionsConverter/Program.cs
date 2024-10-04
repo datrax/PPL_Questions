@@ -1,12 +1,13 @@
 ﻿using System.Text.Json;
 using System.Text;
+using System.Reflection;
 
 class Program
 {
     public static void Main(string[] args)
     {
         string inputFilePath = @"ppla_eng.pdf";
-        string outputFilePath = @"questions.json";
+        string outputFilePath = "../../../questions.json";
 
         var questions = new List<QuestionLine>();
 
