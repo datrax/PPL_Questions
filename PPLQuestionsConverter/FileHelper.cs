@@ -7,7 +7,6 @@ public static class FileHelper
 {
     static readonly JsonSerializerOptions options = new JsonSerializerOptions
     {
-        Encoder = JavaScriptEncoder.Create(UnicodeRanges.All),
         WriteIndented = true
     };
 
