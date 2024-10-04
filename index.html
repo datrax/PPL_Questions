@@ -4,134 +4,73 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz Application</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f9;
-            color: #333;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        .container {
-            max-width: 800px;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-            width: 100%;
-        }
-
-        h1 {
-            text-align: center;
-            margin-bottom: 30px;
-            color: #4CAF50;
-        }
-
-        .question-container {
-            margin-bottom: 30px;
-        }
-
-        #question-text {
-            font-size: 20px;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 20px;
-        }
-
-        .answers button {
+        .active {
             display: block;
-            width: 100%;
-            background-color: #fff;
-            color: #333;
-            border: 2px solid #4CAF50;
-            padding: 15px;
-            font-size: 16px;
-            border-radius: 8px;
-            cursor: pointer;
-            margin-bottom: 15px;
-            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
         }
-
-        .answers button:hover {
-            background-color: #4CAF50;
-            color: white;
-        }
-
-        .answers button.correct {
-            background-color: #4CAF50;
-            color: white;
-            border-color: #4CAF50;
-        }
-
-        .answers button.incorrect {
-            background-color: #f44336;
-            color: white;
-            border-color: #f44336;
-        }
-
-        .result {
-            text-align: center;
-            font-size: 18px;
-            font-weight: bold;
-            margin-top: 20px;
-        }
-
-        button#next-btn {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 8px;
-            margin: 20px auto;
-            display: block;
-            transition: background-color 0.3s;
-        }
-
-        button#next-btn:hover {
-            background-color: #45a049;
-        }
-
-        @media (max-width: 600px) {
-            #question-text {
-                font-size: 18px;
-            }
-
-            .answers button {
-                padding: 12px;
-                font-size: 14px;
-            }
-
-            button#next-btn {
-                padding: 12px 20px;
-                font-size: 14px;
-            }
+        .inactive {
+            display: none;
         }
     </style>
 </head>
-<body>
+<body class="bg-gray-100 flex justify-center items-center min-h-screen">
 
-    <div class="container">
-        <h1>Quiz Application</h1>
-        <div class="question-container">
-            <p id="question-text"></p>
-            <div id="answers" class="answers"></div>
-            <div class="result" id="result"></div>
+    <!-- Main Screen -->
+    <div id="main-screen" class="container mx-auto p-5 bg-white rounded-lg shadow-md active">
+        <h1 class="text-3xl text-center text-green-600 mb-6">Select a Category</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <button class="category-btn p-5 bg-white border-2 border-green-500 rounded-lg shadow hover:bg-green-500 hover:text-white transition duration-300" data-time="45" data-questions="28" data-category="PL010">PL010 Air Law <br><span class="text-sm">Time: 00:45 | Questions: 28</span></button>
+            <button class="category-btn p-5 bg-white border-2 border-green-500 rounded-lg shadow hover:bg-green-500 hover:text-white transition duration-300" data-time="30" data-questions="16" data-category="PL020">PL020 Aircraft General Knowledge <br><span class="text-sm">Time: 00:30 | Questions: 16</span></button>
+            <button class="category-btn p-5 bg-white border-2 border-green-500 rounded-lg shadow hover:bg-green-500 hover:text-white transition duration-300" data-time="60" data-questions="20" data-category="PL030">PL030 Flight Performance and Planning <br><span class="text-sm">Time: 01:00 | Questions: 20</span></button>
+            <button class="category-btn p-5 bg-white border-2 border-green-500 rounded-lg shadow hover:bg-green-500 hover:text-white transition duration-300" data-time="30" data-questions="12" data-category="PL040">PL040 Human Performance and Limitations <br><span class="text-sm">Time: 00:30 | Questions: 12</span></button>
+            <button class="category-btn p-5 bg-white border-2 border-green-500 rounded-lg shadow hover:bg-green-500 hover:text-white transition duration-300" data-time="30" data-questions="12" data-category="PL050">PL050 Meteorology <br><span class="text-sm">Time: 00:30 | Questions: 12</span></button>
+            <button class="category-btn p-5 bg-white border-2 border-green-500 rounded-lg shadow hover:bg-green-500 hover:text-white transition duration-300" data-time="60" data-questions="24" data-category="PL060">PL060 Navigation <br><span class="text-sm">Time: 01:00 | Questions: 24</span></button>
+            <button class="category-btn p-5 bg-white border-2 border-green-500 rounded-lg shadow hover:bg-green-500 hover:text-white transition duration-300" data-time="30" data-questions="12" data-category="PL070">PL070 Operational Procedures <br><span class="text-sm">Time: 00:30 | Questions: 12</span></button>
+            <button class="category-btn p-5 bg-white border-2 border-green-500 rounded-lg shadow hover:bg-green-500 hover:text-white transition duration-300" data-time="45" data-questions="16" data-category="PL080">PL080 Principles of Flight <br><span class="text-sm">Time: 00:45 | Questions: 16</span></button>
+            <button class="category-btn p-5 bg-white border-2 border-green-500 rounded-lg shadow hover:bg-green-500 hover:text-white transition duration-300" data-time="30" data-questions="12" data-category="PL090">PL090 Communications <br><span class="text-sm">Time: 00:30 | Questions: 12</span></button>
         </div>
+    </div>
 
-        <button id="next-btn" onclick="nextQuestion()">Next Question</button>
+    <!-- Quiz Screen -->
+    <div id="quiz-screen" class="container mx-auto p-5 bg-white rounded-lg shadow-md inactive">
+        <h1 id="question-number" class="text-2xl text-center mb-4"></h1>
+        <p id="time-left" class="text-lg text-center mb-4"></p>
+        <div class="question-container mb-6">
+            <p id="question-text" class="font-bold text-lg mb-4"></p>
+            <div id="answers" class="space-y-4"></div>
+            <div id="result" class="text-center font-semibold mt-4"></div>
+        </div>
+        <button id="next-btn" class="mx-auto block bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 transition duration-300" onclick="nextQuestion()">Next Question</button>
+    </div>
+
+    <!-- Result Screen -->
+    <div id="result-screen" class="container mx-auto p-5 bg-white rounded-lg shadow-md inactive">
+        <h1 class="text-2xl text-center mb-4">Quiz Finished!</h1>
+        <p class="text-xl text-center">Your Score: <span id="score" class="font-bold"></span>%</p>
+        <table class="min-w-full mt-4 border-collapse border border-gray-200">
+            <thead>
+                <tr class="bg-gray-100">
+                    <th class="border border-gray-300 px-4 py-2">Question</th>
+                    <th class="border border-gray-300 px-4 py-2">Your Answer</th>
+                    <th class="border border-gray-300 px-4 py-2">Correct Answer</th>
+                </tr>
+            </thead>
+            <tbody id="review-table">
+            </tbody>
+        </table>
+        <button id="restart-btn" class="mt-4 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 transition duration-300" onclick="restartQuiz()">Restart Quiz</button>
     </div>
 
     <script>
         let questions = [];
         let currentQuestionIndex = 0;
         let correctAnswer = '';
+        let correctCount = 0;
+        let timer;
+        let timeLeft = 0;
+        let quizQuestions = [];
+        let selectedAnswers = []; // Array to track selected answers
 
         // Fetching questions from the JSON file on GitHub
         getJSON('https://raw.githubusercontent.com/datrax/PPL_Questions/refs/heads/master/PPLQuestionsConverter/questions.json',
@@ -139,28 +78,59 @@
             if (err !== null) {
                 alert('Something went wrong: ' + err);
             } else {
-                questions = shuffleArray(data).slice(0, 20);  // Take 20 random questions
-                showQuestion(questions[currentQuestionIndex]);
+                questions = data;  // Store all questions
             }
+        });
+
+        // Start quiz based on selected category
+        document.querySelectorAll('.category-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const selectedCategory = button.getAttribute('data-category');
+                const numberOfQuestions = parseInt(button.getAttribute('data-questions'));
+                const time = button.getAttribute('data-time');
+
+                // Filter questions based on selected category
+                quizQuestions = questions.filter(q => q.QuestionCode.startsWith(selectedCategory)).slice(0, numberOfQuestions);
+                timeLeft = parseInt(time) * 60; // Convert minutes to seconds
+                document.getElementById('time-left').textContent = formatTime(timeLeft);
+
+                // Start the timer
+                clearInterval(timer);
+                timer = setInterval(updateTimer, 1000);
+
+                // Show the quiz screen
+                document.getElementById('main-screen').classList.remove('active');
+                document.getElementById('main-screen').classList.add('inactive');
+                document.getElementById('quiz-screen').classList.remove('inactive');
+                document.getElementById('quiz-screen').classList.add('active');
+
+                // Show the first question
+                currentQuestionIndex = 0; // Reset question index
+                correctCount = 0; // Reset correct count
+                selectedAnswers = []; // Reset selected answers
+                showQuestion(quizQuestions[currentQuestionIndex]);
+            });
         });
 
         // Function to show the current question
         function showQuestion(question) {
+            const questionNumber = document.getElementById('question-number');
             const questionText = document.getElementById('question-text');
             const answersDiv = document.getElementById('answers');
             const resultDiv = document.getElementById('result');
 
+            questionNumber.textContent = question.QuestionCode;
             questionText.textContent = question.Question;
             resultDiv.textContent = '';  // Clear result from previous question
             correctAnswer = question.Answer1;
 
             // Shuffle the answers
             const answers = shuffleArray([question.Answer1, question.Answer2, question.Answer3, question.Answer4]);
+            answersDiv.innerHTML = ''; // Clear previous answers
 
-            // Display the answers
-            answersDiv.innerHTML = '';
             answers.forEach(answer => {
                 const answerBtn = document.createElement('button');
+                answerBtn.className = "w-full p-4 border-2 border-green-500 rounded hover:bg-green-500 hover:text-white transition duration-300";
                 answerBtn.textContent = answer;
                 answerBtn.onclick = () => checkAnswer(answer, answerBtn);
                 answersDiv.appendChild(answerBtn);
@@ -172,33 +142,87 @@
             const resultDiv = document.getElementById('result');
             const answerButtons = document.querySelectorAll('#answers button');
 
+            // Store selected answer
+            selectedAnswers[currentQuestionIndex] = selectedAnswer;
+
             if (selectedAnswer === correctAnswer) {
-                buttonElement.classList.add('correct');
+                buttonElement.classList.add('bg-green-500', 'text-white');
+                correctCount++;
                 resultDiv.textContent = 'Correct!';
                 resultDiv.style.color = 'green';
             } else {
-                buttonElement.classList.add('incorrect');
+                buttonElement.classList.add('bg-red-500', 'text-white');
                 resultDiv.textContent = 'Wrong!';
                 resultDiv.style.color = 'red';
             }
 
             // Disable all buttons after an answer is selected
-            // answerButtons.forEach(button => {
-            //     button.disabled = true;
-            //     if (button.textContent === correctAnswer) {
-            //         button.classList.add('correct');
-            //     }
-            // });
+            answerButtons.forEach(button => {
+                button.disabled = true;
+                // if (button.textContent === correctAnswer) {
+                //     button.classList.add('bg-green-500', 'text-white');
+                // }
+            });
         }
 
         // Function to move to the next question
         function nextQuestion() {
             currentQuestionIndex++;
-            if (currentQuestionIndex < questions.length) {
-                showQuestion(questions[currentQuestionIndex]);
+            if (currentQuestionIndex < quizQuestions.length) {
+                showQuestion(quizQuestions[currentQuestionIndex]);
             } else {
-                alert('Quiz finished! No more questions.');
+                clearInterval(timer);
+                showResult();
             }
+        }
+
+        // Function to show result at the end of the quiz
+        function showResult() {
+            document.getElementById('quiz-screen').classList.remove('active');
+            document.getElementById('quiz-screen').classList.add('inactive');
+            document.getElementById('result-screen').classList.remove('inactive');
+            document.getElementById('result-screen').classList.add('active');
+            const score = Math.round((correctCount / quizQuestions.length) * 100);
+            document.getElementById('score').textContent = score;
+
+            const reviewTable = document.getElementById('review-table');
+            reviewTable.innerHTML = '';  // Clear previous results
+
+            quizQuestions.forEach((question, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td class="border border-gray-300 px-4 py-2">${question.Question}</td>
+                    <td class="border border-gray-300 px-4 py-2">${selectedAnswers[index] ? selectedAnswers[index] : 'N/A'}</td>
+                    <td class="border border-gray-300 px-4 py-2">${question.Answer1}</td>
+                `;
+                reviewTable.appendChild(row);
+            });
+        }
+
+        // Function to restart the quiz
+        function restartQuiz() {
+            currentQuestionIndex = 0;
+            correctCount = 0;
+            document.getElementById('result-screen').classList.remove('active');
+            document.getElementById('result-screen').classList.add('inactive');
+            document.getElementById('main-screen').classList.remove('inactive');
+            document.getElementById('main-screen').classList.add('active');
+        }
+
+        // Timer functions
+        function updateTimer() {
+            if (timeLeft <= 0) {
+                clearInterval(timer);
+                showResult();
+                return;
+            }
+            document.getElementById('time-left').textContent = formatTime(--timeLeft);
+        }
+
+        function formatTime(time) {
+            const minutes = Math.floor(time / 60);
+            const seconds = time % 60;
+            return `${minutes}m ${seconds}s`;
         }
 
         // Utility function to shuffle an array (Fisher-Yates algorithm)

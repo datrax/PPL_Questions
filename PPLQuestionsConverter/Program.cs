@@ -1,8 +1,4 @@
-﻿using System.Text.Json;
-using System.Text;
-using System.Reflection;
-
-class Program
+﻿class Program
 {
     public static void Main(string[] args)
     {
@@ -13,7 +9,7 @@ class Program
 
         if (File.Exists(outputFilePath))
         {
-            questions = JsonSerializer.Deserialize<List<QuestionLine>>(File.ReadAllText(outputFilePath, Encoding.Unicode));
+            questions = FileHelper.GetFromOutputFile<List<QuestionLine>>(outputFilePath);
         }
         else
         {
