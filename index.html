@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Application</title>
+    <title>PPL Exam Training</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
         .active {
@@ -18,22 +18,29 @@
 
     <!-- Main Screen -->
     <div id="main-screen" class="container mx-auto p-5 bg-white rounded-lg shadow-md active">
+        <div class="mt-8 text-center mb-4">
+            <p class="text-gray-600 text-lg">
+                This is a test exam tool for the Polish PPL license. All the questions are taken from 
+                <a href="https://www.ulc.gov.pl/_download/personel_lotniczy/lke/ppla_eng.pdf" class="text-blue-500 underline" target="_blank">Polish FAA</a>.
+            </p>
+        </div>
         <h1 class="text-3xl text-center text-green-600 mb-6">Select a Category</h1>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <button class="category-btn p-5 bg-white border-2 border-green-500 rounded-lg shadow hover:bg-green-500 hover:text-white transition duration-300" data-time="45" data-questions="28" data-category="PL010">PL010 Air Law <br><span class="text-sm">Time: 00:45 | Questions: 28</span></button>
-            <button class="category-btn p-5 bg-white border-2 border-green-500 rounded-lg shadow hover:bg-green-500 hover:text-white transition duration-300" data-time="30" data-questions="16" data-category="PL020">PL020 Aircraft General Knowledge <br><span class="text-sm">Time: 00:30 | Questions: 16</span></button>
-            <button class="category-btn p-5 bg-white border-2 border-green-500 rounded-lg shadow hover:bg-green-500 hover:text-white transition duration-300" data-time="60" data-questions="20" data-category="PL030">PL030 Flight Performance and Planning <br><span class="text-sm">Time: 01:00 | Questions: 20</span></button>
-            <button class="category-btn p-5 bg-white border-2 border-green-500 rounded-lg shadow hover:bg-green-500 hover:text-white transition duration-300" data-time="30" data-questions="12" data-category="PL040">PL040 Human Performance and Limitations <br><span class="text-sm">Time: 00:30 | Questions: 12</span></button>
-            <button class="category-btn p-5 bg-white border-2 border-green-500 rounded-lg shadow hover:bg-green-500 hover:text-white transition duration-300" data-time="30" data-questions="12" data-category="PL050">PL050 Meteorology <br><span class="text-sm">Time: 00:30 | Questions: 12</span></button>
-            <button class="category-btn p-5 bg-white border-2 border-green-500 rounded-lg shadow hover:bg-green-500 hover:text-white transition duration-300" data-time="60" data-questions="24" data-category="PL060">PL060 Navigation <br><span class="text-sm">Time: 01:00 | Questions: 24</span></button>
-            <button class="category-btn p-5 bg-white border-2 border-green-500 rounded-lg shadow hover:bg-green-500 hover:text-white transition duration-300" data-time="30" data-questions="12" data-category="PL070">PL070 Operational Procedures <br><span class="text-sm">Time: 00:30 | Questions: 12</span></button>
-            <button class="category-btn p-5 bg-white border-2 border-green-500 rounded-lg shadow hover:bg-green-500 hover:text-white transition duration-300" data-time="45" data-questions="16" data-category="PL080">PL080 Principles of Flight <br><span class="text-sm">Time: 00:45 | Questions: 16</span></button>
-            <button class="category-btn p-5 bg-white border-2 border-green-500 rounded-lg shadow hover:bg-green-500 hover:text-white transition duration-300" data-time="30" data-questions="12" data-category="PL090">PL090 Communications <br><span class="text-sm">Time: 00:30 | Questions: 12</span></button>
+            <button class="category-btn p-5 bg-white border-2 border-green-500 rounded-lg shadow hover:bg-green-500 hover:text-white transition duration-300" data-time="45" data-questions="28" data-category="PL010" data-category-name="PL010 Air Law">PL010 Air Law <br><span class="text-sm">Time: 00:45 | Questions: 28</span></button>
+            <button class="category-btn p-5 bg-white border-2 border-green-500 rounded-lg shadow hover:bg-green-500 hover:text-white transition duration-300" data-time="30" data-questions="16" data-category="PL020" data-category-name="PL020 Aircraft General Knowledge">PL020 Aircraft General Knowledge <br><span class="text-sm">Time: 00:30 | Questions: 16</span></button>
+            <button class="category-btn p-5 bg-white border-2 border-green-500 rounded-lg shadow hover:bg-green-500 hover:text-white transition duration-300" data-time="60" data-questions="20" data-category="PL030" data-category-name="PL030 Flight Performance and Planning">PL030 Flight Performance and Planning <br><span class="text-sm">Time: 01:00 | Questions: 20</span></button>
+            <button class="category-btn p-5 bg-white border-2 border-green-500 rounded-lg shadow hover:bg-green-500 hover:text-white transition duration-300" data-time="30" data-questions="12" data-category="PL040" data-category-name="PL040 Human Performance and Limitations">PL040 Human Performance and Limitations <br><span class="text-sm">Time: 00:30 | Questions: 12</span></button>
+            <button class="category-btn p-5 bg-white border-2 border-green-500 rounded-lg shadow hover:bg-green-500 hover:text-white transition duration-300" data-time="30" data-questions="12" data-category="PL050" data-category-name="PL050 Meteorology">PL050 Meteorology <br><span class="text-sm">Time: 00:30 | Questions: 12</span></button>
+            <button class="category-btn p-5 bg-white border-2 border-green-500 rounded-lg shadow hover:bg-green-500 hover:text-white transition duration-300" data-time="60" data-questions="24" data-category="PL060" data-category-name="PL060 Navigation">PL060 Navigation <br><span class="text-sm">Time: 01:00 | Questions: 24</span></button>
+            <button class="category-btn p-5 bg-white border-2 border-green-500 rounded-lg shadow hover:bg-green-500 hover:text-white transition duration-300" data-time="30" data-questions="12" data-category="PL070" data-category-name="PL070 Operational Procedures">PL070 Operational Procedures <br><span class="text-sm">Time: 00:30 | Questions: 12</span></button>
+            <button class="category-btn p-5 bg-white border-2 border-green-500 rounded-lg shadow hover:bg-green-500 hover:text-white transition duration-300" data-time="45" data-questions="16" data-category="PL080" data-category-name="PL080 Principles of Flight">PL080 Principles of Flight <br><span class="text-sm">Time: 00:45 | Questions: 16</span></button>
+            <button class="category-btn p-5 bg-white border-2 border-green-500 rounded-lg shadow hover:bg-green-500 hover:text-white transition duration-300" data-time="30" data-questions="12" data-category="PL090" data-category-name="PL090 Communications">PL090 Communications <br><span class="text-sm">Time: 00:30 | Questions: 12</span></button>
         </div>
     </div>
 
     <!-- Quiz Screen -->
     <div id="quiz-screen" class="container mx-auto p-5 bg-white rounded-lg shadow-md inactive">
+        <h1 id="selected-category-name" class="text-xl text-center mb-2 font-semibold"></h1>
         <h1 id="question-number" class="text-2xl text-center mb-4"></h1>
         <p id="time-left" class="text-lg text-center mb-4"></p>
         <div class="question-container mb-6">
@@ -42,6 +49,7 @@
             <div id="result" class="text-center font-semibold mt-4"></div>
         </div>
         <button id="next-btn" class="mx-auto block bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 transition duration-300" onclick="nextQuestion()">Next Question</button>
+        <button id="home-btn" class="mt-4 mx-auto block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300" onclick="returnToHome()">Return to Home</button> <!-- Return to Home Button -->
     </div>
 
     <!-- Result Screen -->
@@ -59,7 +67,7 @@
             <tbody id="review-table">
             </tbody>
         </table>
-        <button id="restart-btn" class="mt-4 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 transition duration-300" onclick="restartQuiz()">Restart Quiz</button>
+        <button id="restart-btn" class="mt-4 bg-blue-500  text-white py-2 px-4 rounded hover:bg-green-600 transition duration-300" onclick="restartQuiz()">Return to Home</button>
     </div>
 
     <script>
@@ -71,6 +79,7 @@
         let timeLeft = 0;
         let quizQuestions = [];
         let selectedAnswers = []; // Array to track selected answers
+        let selectedCategoryName = '';
 
         // Fetching questions from the JSON file on GitHub
         getJSON('https://raw.githubusercontent.com/datrax/PPL_Questions/refs/heads/master/PPLQuestionsConverter/questions.json',
@@ -86,11 +95,12 @@
         document.querySelectorAll('.category-btn').forEach(button => {
             button.addEventListener('click', () => {
                 const selectedCategory = button.getAttribute('data-category');
+                selectedCategoryName = button.getAttribute('data-category-name');
                 const numberOfQuestions = parseInt(button.getAttribute('data-questions'));
                 const time = button.getAttribute('data-time');
 
                 // Filter questions based on selected category
-                quizQuestions = questions.filter(q => q.QuestionCode.startsWith(selectedCategory)).slice(0, numberOfQuestions);
+                quizQuestions = shuffleArray(questions.filter(q => q.QuestionCode.startsWith(selectedCategory))).slice(0, numberOfQuestions);
                 timeLeft = parseInt(time) * 60; // Convert minutes to seconds
                 document.getElementById('time-left').textContent = formatTime(timeLeft);
 
@@ -114,11 +124,13 @@
 
         // Function to show the current question
         function showQuestion(question) {
+            const category = document.getElementById('selected-category-name');
             const questionNumber = document.getElementById('question-number');
             const questionText = document.getElementById('question-text');
             const answersDiv = document.getElementById('answers');
             const resultDiv = document.getElementById('result');
 
+            category.textContent = selectedCategoryName;
             questionNumber.textContent = question.QuestionCode;
             questionText.textContent = question.Question;
             resultDiv.textContent = '';  // Clear result from previous question
@@ -150,10 +162,12 @@
                 correctCount++;
                 resultDiv.textContent = 'Correct!';
                 resultDiv.style.color = 'green';
+                setTimeout(nextQuestion, 1500);
             } else {
                 buttonElement.classList.add('bg-red-500', 'text-white');
                 resultDiv.textContent = 'Wrong!';
                 resultDiv.style.color = 'red';
+                setTimeout(nextQuestion, 5000);
             }
 
             // Disable all buttons after an answer is selected
@@ -209,7 +223,16 @@
             document.getElementById('main-screen').classList.add('active');
         }
 
-        // Timer functions
+        // Return to home screen
+        function returnToHome() {
+            clearInterval(timer); // Clear timer if running
+            document.getElementById('quiz-screen').classList.remove('active');
+            document.getElementById('quiz-screen').classList.add('inactive');
+            document.getElementById('main-screen').classList.remove('inactive');
+            document.getElementById('main-screen').classList.add('active');
+        }
+
+        // Update the timer
         function updateTimer() {
             if (timeLeft <= 0) {
                 clearInterval(timer);
