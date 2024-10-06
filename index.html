@@ -146,6 +146,7 @@
 
         <div class="w-3/4 p-4">
             <h1 id="selected-category-name" class="text-xl text-center mb-2 font-semibold"></h1>
+            <h1 id="question-code" class="text-2xl text-center mb-4"></h1>
             <h1 id="question-number" class="text-2xl text-center mb-4"></h1>
             <p id="time-left" class="text-lg text-center mb-4"></p>
             <div class="question-container mb-6">
@@ -233,7 +234,7 @@
 
             // Filter questions based on selected category
             quizQuestions = learnMode ? questions.filter(q => q.QuestionCode.startsWith(selectedCategory)) :
-                questions.filter(q => q.QuestionCode.startsWith(selectedCategory)).slice(0, numberOfQuestions);
+                shuffleArray(questions.filter(q => q.QuestionCode.startsWith(selectedCategory))).slice(0, numberOfQuestions);
 
             // Populate the question navigation sidebar
             quizQuestions.forEach((question, index) => {
@@ -258,6 +259,7 @@
         function showQuestion() {
             const question = quizQuestions[currentQuestionIndex];
             document.getElementById('question-number').innerText = `Question ${currentQuestionIndex + 1} of ${quizQuestions.length}`;
+            document.getElementById('question-code').innerText = question.QuestionCode;
             document.getElementById('question-text').innerText = question.Question;
             const answers = shuffleArray([question.Answer1, question.Answer2, question.Answer3, question.Answer4]);
             const answersContainer = document.getElementById('answers');
@@ -287,7 +289,9 @@
                 questionButton.classList.add('border-red-500', 'bg-red-500');
             }
 
-            setTimeout(nextQuestion, 1500);
+            if (currentQuestionIndex < quizQuestions.length - 1) {
+                setTimeout(nextQuestion, 1500);
+            }
         }
 
         function highlightAnswers() {
