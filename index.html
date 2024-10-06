@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,47 +10,157 @@
         .active {
             display: block;
         }
+
         .inactive {
             display: none;
         }
+
+        /* Toggle Switch Styles */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: blue;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        /* When the checkbox is checked, change the background and the slider position */
+        input:checked+.slider {
+            background-color: #4caf50;
+        }
+
+        input:checked+.slider:before {
+            transform: translateX(26px);
+        }
     </style>
 </head>
+
 <body class="bg-gray-100 flex justify-center items-center min-h-screen">
 
     <!-- Main Screen -->
     <div id="main-screen" class="container mx-auto p-5 bg-white rounded-lg shadow-md active">
         <div class="mt-8 text-center mb-4">
             <p class="text-gray-600 text-lg">
-                This is a test exam tool for the Polish PPL license. All the questions are taken from 
-                <a href="https://www.ulc.gov.pl/_download/personel_lotniczy/lke/ppla_eng.pdf" class="text-blue-500 underline" target="_blank">Polish FAA</a>.
+                This is a test exam tool for the Polish PPL license. All the questions are taken from
+                <a href="https://www.ulc.gov.pl/_download/personel_lotniczy/lke/ppla_eng.pdf"
+                    class="text-blue-500 underline" target="_blank">Polish FAA</a>.
             </p>
         </div>
-        <h1 class="text-3xl text-center text-green-600 mb-6">Select a Category</h1>
+
+        <!-- Mode Switch -->
+        <div class="flex items-center justify-center mb-6">
+            <span id="mode-title" class="text-gray-600 text-lg mr-4">Learn Mode</span>
+            <label class="switch">
+                <input type="checkbox" id="mode-toggle">
+                <span class="slider"></span>
+            </label>
+            <span class="text-gray-600 text-lg ml-4">Exam Mode</span>
+        </div>
+        <h1 class="text-3xl text-center text-gray-600 mb-6">Select a Category</h1>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <button class="category-btn p-5 bg-white border-2 border-green-500 rounded-lg shadow hover:bg-green-500 hover:text-white transition duration-300" data-time="45" data-questions="28" data-category="PL010" data-category-name="PL010 Air Law">PL010 Air Law <br><span class="text-sm">Time: 00:45 | Questions: 28</span></button>
-            <button class="category-btn p-5 bg-white border-2 border-green-500 rounded-lg shadow hover:bg-green-500 hover:text-white transition duration-300" data-time="30" data-questions="16" data-category="PL020" data-category-name="PL020 Aircraft General Knowledge">PL020 Aircraft General Knowledge <br><span class="text-sm">Time: 00:30 | Questions: 16</span></button>
-            <button class="category-btn p-5 bg-white border-2 border-green-500 rounded-lg shadow hover:bg-green-500 hover:text-white transition duration-300" data-time="60" data-questions="20" data-category="PL030" data-category-name="PL030 Flight Performance and Planning">PL030 Flight Performance and Planning <br><span class="text-sm">Time: 01:00 | Questions: 20</span></button>
-            <button class="category-btn p-5 bg-white border-2 border-green-500 rounded-lg shadow hover:bg-green-500 hover:text-white transition duration-300" data-time="30" data-questions="12" data-category="PL040" data-category-name="PL040 Human Performance and Limitations">PL040 Human Performance and Limitations <br><span class="text-sm">Time: 00:30 | Questions: 12</span></button>
-            <button class="category-btn p-5 bg-white border-2 border-green-500 rounded-lg shadow hover:bg-green-500 hover:text-white transition duration-300" data-time="30" data-questions="12" data-category="PL050" data-category-name="PL050 Meteorology">PL050 Meteorology <br><span class="text-sm">Time: 00:30 | Questions: 12</span></button>
-            <button class="category-btn p-5 bg-white border-2 border-green-500 rounded-lg shadow hover:bg-green-500 hover:text-white transition duration-300" data-time="60" data-questions="24" data-category="PL060" data-category-name="PL060 Navigation">PL060 Navigation <br><span class="text-sm">Time: 01:00 | Questions: 24</span></button>
-            <button class="category-btn p-5 bg-white border-2 border-green-500 rounded-lg shadow hover:bg-green-500 hover:text-white transition duration-300" data-time="30" data-questions="12" data-category="PL070" data-category-name="PL070 Operational Procedures">PL070 Operational Procedures <br><span class="text-sm">Time: 00:30 | Questions: 12</span></button>
-            <button class="category-btn p-5 bg-white border-2 border-green-500 rounded-lg shadow hover:bg-green-500 hover:text-white transition duration-300" data-time="45" data-questions="16" data-category="PL080" data-category-name="PL080 Principles of Flight">PL080 Principles of Flight <br><span class="text-sm">Time: 00:45 | Questions: 16</span></button>
-            <button class="category-btn p-5 bg-white border-2 border-green-500 rounded-lg shadow hover:bg-green-500 hover:text-white transition duration-300" data-time="30" data-questions="12" data-category="PL090" data-category-name="PL090 Communications">PL090 Communications <br><span class="text-sm">Time: 00:30 | Questions: 12</span></button>
+            <button
+                class="category-btn p-5 bg-white border-2 border-gray-500 rounded-lg shadow hover:bg-gray-500 hover:text-white transition duration-300"
+                data-time="45" data-questions="28" data-category="PL010" data-category-name="PL010 Air Law">PL010 Air
+                Law <br><span class="text-sm">Time: 00:45 | Questions: 28</span></button>
+            <button
+                class="category-btn p-5 bg-white border-2 border-gray-500 rounded-lg shadow hover:bg-gray-500 hover:text-white transition duration-300"
+                data-time="30" data-questions="16" data-category="PL020"
+                data-category-name="PL020 Aircraft General Knowledge">PL020 Aircraft General Knowledge <br><span
+                    class="text-sm">Time: 00:30 | Questions: 16</span></button>
+            <button
+                class="category-btn p-5 bg-white border-2 border-gray-500 rounded-lg shadow hover:bg-gray-500 hover:text-white transition duration-300"
+                data-time="60" data-questions="20" data-category="PL030"
+                data-category-name="PL030 Flight Performance and Planning">PL030 Flight Performance and Planning
+                <br><span class="text-sm">Time: 01:00 | Questions: 20</span></button>
+            <button
+                class="category-btn p-5 bg-white border-2 border-gray-500 rounded-lg shadow hover:bg-gray-500 hover:text-white transition duration-300"
+                data-time="30" data-questions="12" data-category="PL040"
+                data-category-name="PL040 Human Performance and Limitations">PL040 Human Performance and Limitations
+                <br><span class="text-sm">Time: 00:30 | Questions: 12</span></button>
+            <button
+                class="category-btn p-5 bg-white border-2 border-gray-500 rounded-lg shadow hover:bg-gray-500 hover:text-white transition duration-300"
+                data-time="30" data-questions="12" data-category="PL050" data-category-name="PL050 Meteorology">PL050
+                Meteorology <br><span class="text-sm">Time: 00:30 | Questions: 12</span></button>
+            <button
+                class="category-btn p-5 bg-white border-2 border-gray-500 rounded-lg shadow hover:bg-gray-500 hover:text-white transition duration-300"
+                data-time="60" data-questions="24" data-category="PL060" data-category-name="PL060 Navigation">PL060
+                Navigation <br><span class="text-sm">Time: 01:00 | Questions: 24</span></button>
+            <button
+                class="category-btn p-5 bg-white border-2 border-gray-500 rounded-lg shadow hover:bg-gray-500 hover:text-white transition duration-300"
+                data-time="30" data-questions="12" data-category="PL070"
+                data-category-name="PL070 Operational Procedures">PL070 Operational Procedures <br><span
+                    class="text-sm">Time: 00:30 | Questions: 12</span></button>
+            <button
+                class="category-btn p-5 bg-white border-2 border-gray-500 rounded-lg shadow hover:bg-gray-500 hover:text-white transition duration-300"
+                data-time="45" data-questions="16" data-category="PL080"
+                data-category-name="PL080 Principles of Flight">PL080 Principles of Flight <br><span
+                    class="text-sm">Time: 00:45 | Questions: 16</span></button>
+            <button
+                class="category-btn p-5 bg-white border-2 border-gray-500 rounded-lg shadow hover:bg-gray-500 hover:text-white transition duration-300"
+                data-time="30" data-questions="12" data-category="PL090" data-category-name="PL090 Communications">PL090
+                Communications <br><span class="text-sm">Time: 00:30 | Questions: 12</span></button>
         </div>
     </div>
 
     <!-- Quiz Screen -->
-    <div id="quiz-screen" class="container mx-auto p-5 bg-white rounded-lg shadow-md inactive">
-        <h1 id="selected-category-name" class="text-xl text-center mb-2 font-semibold"></h1>
-        <h1 id="question-number" class="text-2xl text-center mb-4"></h1>
-        <p id="time-left" class="text-lg text-center mb-4"></p>
-        <div class="question-container mb-6">
-            <p id="question-text" class="font-bold text-lg mb-4"></p>
-            <div id="answers" class="space-y-4"></div>
-            <div id="result" class="text-center font-semibold mt-4"></div>
+    <div id="quiz-screen" class="container mx-auto p-5 bg-white rounded-lg shadow-md inactive flex">
+        <!-- Sidebar for Question Navigation -->
+        <div class="w-1/4 p-4 border-r border-gray-300">
+            <h2 class="text-lg font-semibold mb-4">Questions</h2>
+            <div id="question-navigation" class="space-y-2 h-80 overflow-auto">
+                <!-- Dynamic question numbers will be added here -->
+            </div>
+            <button id="home-btn"
+                class="mt-4 mx-auto block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300"
+                onclick="returnToHome()">Return to Home</button>
         </div>
-        <button id="next-btn" class="mx-auto block bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 transition duration-300" onclick="nextQuestion()">Next Question</button>
-        <button id="home-btn" class="mt-4 mx-auto block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300" onclick="returnToHome()">Return to Home</button> <!-- Return to Home Button -->
+
+        <div class="w-3/4 p-4">
+            <h1 id="selected-category-name" class="text-xl text-center mb-2 font-semibold"></h1>
+            <h1 id="question-number" class="text-2xl text-center mb-4"></h1>
+            <p id="time-left" class="text-lg text-center mb-4"></p>
+            <div class="question-container mb-6">
+                <p id="question-text" class="font-bold text-lg mb-4"></p>
+                <div id="answers" class="space-y-4"></div>
+            </div>
+            <div class="w-full flex justify-between mt-4">
+                <button id="back-btn"
+                    class="bg-yellow-500 text-white py-2 px-4 rounded hover:bg-yellow-600 transition duration-300"
+                    onclick="goBack()">Back</button>
+                <button id="next-btn"
+                    class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 transition duration-300"
+                    onclick="nextQuestion()">Next Question</button>
+            </div>
+        </div>
     </div>
 
     <!-- Result Screen -->
@@ -59,37 +170,48 @@
         <table class="min-w-full mt-4 border-collapse border border-gray-200">
             <thead>
                 <tr class="bg-gray-100">
-                    <th class="border border-gray-300 px-4 py-2">Question</th>
-                    <th class="border border-gray-300 px-4 py-2">Your Answer</th>
-                    <th class="border border-gray-300 px-4 py-2">Correct Answer</th>
+                    <th class="border border-gray-300 px-1 py-2">Code</th>
+                    <th class="border border-gray-300 px-2 py-2">Question</th>
+                    <th class="border border-gray-300 px-3 py-2">Your Answer</th>
+                    <th class="border border-gray-300 px-3 py-2">Correct Answer</th>
                 </tr>
             </thead>
             <tbody id="review-table">
             </tbody>
         </table>
-        <button id="restart-btn" class="mt-4 bg-blue-500  text-white py-2 px-4 rounded hover:bg-green-600 transition duration-300" onclick="restartQuiz()">Return to Home</button>
+        <button id="restart-btn"
+            class="mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-green-600 transition duration-300"
+            onclick="restartQuiz()">Return to Home</button>
     </div>
 
     <script>
         let questions = [];
         let currentQuestionIndex = 0;
-        let correctAnswer = '';
-        let correctCount = 0;
         let timer;
         let timeLeft = 0;
         let quizQuestions = [];
-        let selectedAnswers = []; // Array to track selected answers
         let selectedCategoryName = '';
+        let learnMode = true;
 
-        // Fetching questions from the JSON file on GitHub
-        getJSON('https://raw.githubusercontent.com/datrax/PPL_Questions/refs/heads/master/PPLQuestionsConverter/questions.json',
-        function(err, data) {
-            if (err !== null) {
-                alert('Something went wrong: ' + err);
+
+        const modeToggle = document.getElementById('mode-toggle');
+
+        modeToggle.addEventListener('change', () => {
+            if (modeToggle.checked) {
+                learnMode = false;
             } else {
-                questions = data;  // Store all questions
+                learnMode = true;
             }
         });
+        // Fetching questions from the JSON file on GitHub
+        getJSON('https://raw.githubusercontent.com/datrax/PPL_Questions/refs/heads/master/PPLQuestionsConverter/questions.json',
+            function (err, data) {
+                if (err !== null) {
+                    alert('Something went wrong: ' + err);
+                } else {
+                    questions = data;  // Store all questions
+                }
+            });
 
         // Start quiz based on selected category
         document.querySelectorAll('.category-btn').forEach(button => {
@@ -97,156 +219,171 @@
                 const selectedCategory = button.getAttribute('data-category');
                 selectedCategoryName = button.getAttribute('data-category-name');
                 const numberOfQuestions = parseInt(button.getAttribute('data-questions'));
-                const time = button.getAttribute('data-time');
-
-                // Filter questions based on selected category
-                quizQuestions = shuffleArray(questions.filter(q => q.QuestionCode.startsWith(selectedCategory))).slice(0, numberOfQuestions);
-                timeLeft = parseInt(time) * 60; // Convert minutes to seconds
-                document.getElementById('time-left').textContent = formatTime(timeLeft);
-
-                // Start the timer
-                clearInterval(timer);
-                timer = setInterval(updateTimer, 1000);
-
-                // Show the quiz screen
-                document.getElementById('main-screen').classList.remove('active');
-                document.getElementById('main-screen').classList.add('inactive');
-                document.getElementById('quiz-screen').classList.remove('inactive');
-                document.getElementById('quiz-screen').classList.add('active');
-
-                // Show the first question
-                currentQuestionIndex = 0; // Reset question index
-                correctCount = 0; // Reset correct count
-                selectedAnswers = []; // Reset selected answers
-                showQuestion(quizQuestions[currentQuestionIndex]);
+                timeLeft = parseInt(button.getAttribute('data-time')) * 60;
+                startQuiz(selectedCategory, numberOfQuestions);
             });
         });
 
-        // Function to show the current question
-        function showQuestion(question) {
-            const category = document.getElementById('selected-category-name');
-            const questionNumber = document.getElementById('question-number');
-            const questionText = document.getElementById('question-text');
-            const answersDiv = document.getElementById('answers');
-            const resultDiv = document.getElementById('result');
+        // Function to start the quiz
+        function startQuiz(selectedCategory, numberOfQuestions) {
+            document.getElementById('main-screen').classList.add('inactive');
+            document.getElementById('quiz-screen').classList.remove('inactive');
+            document.getElementById('selected-category-name').innerText = selectedCategoryName;
+            document.getElementById('question-navigation').innerHTML = '';
 
-            category.textContent = selectedCategoryName;
-            questionNumber.textContent = question.QuestionCode;
-            questionText.textContent = question.Question;
-            resultDiv.textContent = '';  // Clear result from previous question
-            correctAnswer = question.Answer1;
+            // Filter questions based on selected category
+            quizQuestions = learnMode ? questions.filter(q => q.QuestionCode.startsWith(selectedCategory)) :
+                questions.filter(q => q.QuestionCode.startsWith(selectedCategory)).slice(0, numberOfQuestions);
 
-            // Shuffle the answers
-            const answers = shuffleArray([question.Answer1, question.Answer2, question.Answer3, question.Answer4]);
-            answersDiv.innerHTML = ''; // Clear previous answers
-
-            answers.forEach(answer => {
-                const answerBtn = document.createElement('button');
-                answerBtn.className = "w-full p-4 border-2 border-green-500 rounded hover:bg-green-500 hover:text-white transition duration-300";
-                answerBtn.textContent = answer;
-                answerBtn.onclick = () => checkAnswer(answer, answerBtn);
-                answersDiv.appendChild(answerBtn);
+            // Populate the question navigation sidebar
+            quizQuestions.forEach((question, index) => {
+                question.correctAnswer = question.Answer1;
+                question.selectedAnswer = '';
+                const questionNumberElement = document.createElement('button');
+                questionNumberElement.innerText = index + 1;
+                questionNumberElement.classList.add('bg-gray-200', 'rounded-full', 'py-1', 'px-2', 'hover:bg-gray-300', 'transition', 'duration-300');
+                questionNumberElement.onclick = () => jumpToQuestion(index);
+                document.getElementById('question-navigation').appendChild(questionNumberElement);
             });
+
+            // Start the first question
+            currentQuestionIndex = 0;
+            showQuestion();
+            if (!learnMode) {
+                startTimer();
+            }
         }
 
-        // Function to check the answer
-        function checkAnswer(selectedAnswer, buttonElement) {
-            const resultDiv = document.getElementById('result');
-            const answerButtons = document.querySelectorAll('#answers button');
+        // Function to show the question
+        function showQuestion() {
+            const question = quizQuestions[currentQuestionIndex];
+            document.getElementById('question-number').innerText = `Question ${currentQuestionIndex + 1} of ${quizQuestions.length}`;
+            document.getElementById('question-text').innerText = question.Question;
+            const answers = shuffleArray([question.Answer1, question.Answer2, question.Answer3, question.Answer4]);
+            const answersContainer = document.getElementById('answers');
+            answersContainer.innerHTML = '';
 
-            // Store selected answer
-            selectedAnswers[currentQuestionIndex] = selectedAnswer;
+            answers.forEach(answer => {
+                const answerButton = document.createElement('button');
+                answerButton.innerHTML = answer;
+                answerButton.className += (' w-full p-4 border-2 border-gray-500 rounded hover:bg-gray-500 hover:text-white transition duration-300');
+                answerButton.onclick = () => selectAnswer(answer);
+                answersContainer.appendChild(answerButton);
+            });
+            highlightAnswers();
+        }
 
-            if (selectedAnswer === correctAnswer) {
-                buttonElement.classList.add('bg-green-500', 'text-white');
-                correctCount++;
-                resultDiv.textContent = 'Correct!';
-                resultDiv.style.color = 'green';
-                setTimeout(nextQuestion, 1500);
-            } else {
-                buttonElement.classList.add('bg-red-500', 'text-white');
-                resultDiv.textContent = 'Wrong!';
-                resultDiv.style.color = 'red';
-                setTimeout(nextQuestion, 5000);
+        // Function to select an answer
+        function selectAnswer(answer) {
+            var correctAnswer = quizQuestions[currentQuestionIndex].correctAnswer;
+            quizQuestions[currentQuestionIndex].selectedAnswer = answer; // Track selected answer
+            highlightAnswers();
+            var questionButton = document.getElementById('question-navigation').getElementsByTagName('button')[currentQuestionIndex];
+            questionButton.classList.remove('border-red-500', 'bg-red-500', 'border-green-500', 'bg-green-500',);
+            if (correctAnswer === answer) {
+                questionButton.classList.add('border-green-500', 'bg-green-500');
+            }
+            else {
+                questionButton.classList.add('border-red-500', 'bg-red-500');
             }
 
-            // Disable all buttons after an answer is selected
-            answerButtons.forEach(button => {
-                button.disabled = true;
-                // if (button.textContent === correctAnswer) {
-                //     button.classList.add('bg-green-500', 'text-white');
-                // }
-            });
+            setTimeout(nextQuestion, 1500);
+        }
+
+        function highlightAnswers() {
+            var selectedAnswer = quizQuestions[currentQuestionIndex].selectedAnswer;
+            if (selectedAnswer == '') return;
+            var button = Array.from(document.getElementById('answers').getElementsByTagName('button')).find(btn => btn.innerHTML === selectedAnswer);
+            button.classList.remove('border-red-500', 'bg-red-500', 'border-green-500', 'bg-green-500', 'border-gray-500', 'hover:bg-gray-500');
+            if (selectedAnswer != quizQuestions[currentQuestionIndex].correctAnswer) {
+                button.classList.add('border-red-500', 'bg-red-500');
+            } else {
+                button.classList.add('border-green-500', 'bg-green-500');
+            }
+
         }
 
         // Function to move to the next question
         function nextQuestion() {
-            currentQuestionIndex++;
-            if (currentQuestionIndex < quizQuestions.length) {
-                showQuestion(quizQuestions[currentQuestionIndex]);
+            if (currentQuestionIndex < quizQuestions.length - 1) {
+                currentQuestionIndex++;
+                showQuestion();
             } else {
-                clearInterval(timer);
-                showResult();
+                finishQuiz();
             }
         }
 
-        // Function to show result at the end of the quiz
-        function showResult() {
-            document.getElementById('quiz-screen').classList.remove('active');
+        // Function to finish the quiz
+        function finishQuiz() {
+            clearInterval(timer);
             document.getElementById('quiz-screen').classList.add('inactive');
             document.getElementById('result-screen').classList.remove('inactive');
-            document.getElementById('result-screen').classList.add('active');
-            const score = Math.round((correctCount / quizQuestions.length) * 100);
-            document.getElementById('score').textContent = score;
+            const correctCount = quizQuestions.reduce((count, question) => count + (question.selectedAnswer === question.correctAnswer ? 1 : 0), 0);
+            document.getElementById('score').innerText = ((correctCount / quizQuestions.length) * 100).toFixed(2);
+            generateReviewTable();
+        }
 
+        // Function to generate review table
+        function generateReviewTable() {
             const reviewTable = document.getElementById('review-table');
-            reviewTable.innerHTML = '';  // Clear previous results
+            reviewTable.innerHTML = '';
 
             quizQuestions.forEach((question, index) => {
+                var isCorrect = question.selectedAnswer == question.correctAnswer;
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td class="border border-gray-300 px-4 py-2">${question.Question}</td>
-                    <td class="border border-gray-300 px-4 py-2">${selectedAnswers[index] ? selectedAnswers[index] : 'N/A'}</td>
-                    <td class="border border-gray-300 px-4 py-2">${question.Answer1}</td>
+                    <td class="border border-gray-300 px-1 py-2">${question.QuestionCode}</td>
+                    <td class="border border-gray-300 px-2 py-2">${question.Question}</td>
+                    <td class="border border-gray-300 px-3 py-2 ${isCorrect ? 'bg-green-500' : 'bg-red-500'}">${question.selectedAnswer || 'N/A'}</td>
+                    <td class="border border-gray-300 px-3 py-2">${isCorrect ? '' : question.correctAnswer}</td>
                 `;
                 reviewTable.appendChild(row);
             });
         }
 
-        // Function to restart the quiz
-        function restartQuiz() {
-            currentQuestionIndex = 0;
-            correctCount = 0;
-            document.getElementById('result-screen').classList.remove('active');
-            document.getElementById('result-screen').classList.add('inactive');
-            document.getElementById('main-screen').classList.remove('inactive');
-            document.getElementById('main-screen').classList.add('active');
+        // Function to start the timer
+        function startTimer() {
+            const timeLeftDisplay = document.getElementById('time-left');
+            timer = setInterval(() => {
+                timeLeft--;
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                timeLeftDisplay.innerText = `Time Left: ${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    finishQuiz();
+                }
+            }, 1000);
         }
 
-        // Return to home screen
+        // Function to return to home
         function returnToHome() {
-            clearInterval(timer); // Clear timer if running
-            document.getElementById('quiz-screen').classList.remove('active');
             document.getElementById('quiz-screen').classList.add('inactive');
             document.getElementById('main-screen').classList.remove('inactive');
-            document.getElementById('main-screen').classList.add('active');
         }
 
-        // Update the timer
-        function updateTimer() {
-            if (timeLeft <= 0) {
-                clearInterval(timer);
-                showResult();
-                return;
+        // Function to restart quiz
+        function restartQuiz() {
+            currentQuestionIndex = 0;
+            document.getElementById('result-screen').classList.add('inactive');
+            document.getElementById('main-screen').classList.remove('inactive');
+        }
+
+        // Function to go back to the previous question
+        function goBack() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion();
             }
-            document.getElementById('time-left').textContent = formatTime(--timeLeft);
         }
 
-        function formatTime(time) {
-            const minutes = Math.floor(time / 60);
-            const seconds = time % 60;
-            return `${minutes}m ${seconds}s`;
+        // Function to jump to a specific question
+        function jumpToQuestion(index) {
+            currentQuestionIndex = index;
+            showQuestion();
         }
+
 
         // Utility function to shuffle an array (Fisher-Yates algorithm)
         function shuffleArray(array) {
@@ -257,21 +394,23 @@
             return array;
         }
 
+        // Helper function to fetch JSON data
         function getJSON(url, callback) {
-            var xhr = new XMLHttpRequest();
+            const xhr = new XMLHttpRequest();
             xhr.open('GET', url, true);
-            xhr.responseType = 'json';
-            xhr.onload = function() {
-                var status = xhr.status;
-                if (status === 200) {
-                    callback(null, xhr.response);
+            xhr.onload = function () {
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    callback(null, JSON.parse(xhr.responseText));
                 } else {
-                    callback(status, xhr.response);
+                    callback(xhr.statusText);
                 }
+            };
+            xhr.onerror = function () {
+                callback(xhr.statusText);
             };
             xhr.send();
         }
     </script>
-
 </body>
+
 </html>
