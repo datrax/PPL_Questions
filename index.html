@@ -363,6 +363,7 @@
 
         // Function to return to home
         function returnToHome() {
+            clearInterval(timer);
             document.getElementById('quiz-screen').classList.add('inactive');
             document.getElementById('main-screen').classList.remove('inactive');
         }
