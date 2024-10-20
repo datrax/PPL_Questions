@@ -53,6 +53,11 @@
             border-radius: 50%;
         }
 
+        
+        .eighty-percent-height {
+            max-height: 80vh;
+        }
+
         /* When the checkbox is checked, change the background and the slider position */
         input:checked+.slider {
             background-color: #4caf50;
@@ -134,9 +139,9 @@
     <!-- Quiz Screen -->
     <div id="quiz-screen" class="container mx-auto p-5 bg-white rounded-lg shadow-md inactive flex">
         <!-- Sidebar for Question Navigation -->
-        <div class="w-1/4 p-4 border-r border-gray-300">
+        <div class="w-2/12 p-4 border-r border-gray-300">
             <h2 class="text-lg font-semibold mb-4">Questions</h2>
-            <div id="question-navigation" class="space-y-2 h-80 overflow-auto">
+            <div id="question-navigation" class="space-y-2 eighty-percent-height overflow-auto">
                 <!-- Dynamic question numbers will be added here -->
             </div>
             <button id="home-btn"
@@ -144,7 +149,7 @@
                 onclick="returnToHome()">Return to Home</button>
         </div>
 
-        <div class="w-3/4 p-4">
+        <div class="w-10/12 p-4">
             <h1 id="selected-category-name" class="text-xl text-center mb-2 font-semibold"></h1>
             <h1 id="question-code" class="text-2xl text-center mb-4"></h1>
             <h1 id="question-number" class="text-2xl text-center mb-4"></h1>
@@ -193,6 +198,7 @@
         let quizQuestions = [];
         let selectedCategoryName = '';
         let learnMode = true;
+        let lastSelectedQuestionCard = null;
 
 
         const modeToggle = document.getElementById('mode-toggle');
@@ -204,16 +210,23 @@
                 learnMode = true;
             }
         });
-        // Fetching questions from the JSON file on GitHub
-        getJSON('https://raw.githubusercontent.com/datrax/PPL_Questions/refs/heads/master/PPLQuestionsConverter/questions.json',
-            function (err, data) {
-                if (err !== null) {
-                    alert('Something went wrong: ' + err);
-                } else {
-                    questions = data;  // Store all questions
-                }
-            });
 
+        // Fetch JSON data
+        fetch('https://raw.githubusercontent.com/datrax/PPL_Questions/refs/heads/master/PPLQuestionsConverter/questions.json')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Something went wrong: ' + response.statusText);
+                }
+                return response.json();  // Parse the JSON from the response
+            })
+            .then(data => {
+                questions = data;  // Store all questions
+            })
+            .catch(err => {
+                alert('Something went wrong: ' + err);
+            });
+            
+            
         // Start quiz based on selected category
         document.querySelectorAll('.category-btn').forEach(button => {
             button.addEventListener('click', () => {
@@ -235,14 +248,14 @@
             // Filter questions based on selected category
             quizQuestions = learnMode ? questions.filter(q => q.QuestionCode.startsWith(selectedCategory)) :
                 shuffleArray(questions.filter(q => q.QuestionCode.startsWith(selectedCategory))).slice(0, numberOfQuestions);
-
+            
             // Populate the question navigation sidebar
             quizQuestions.forEach((question, index) => {
                 question.correctAnswer = question.Answer1;
                 question.selectedAnswer = '';
                 const questionNumberElement = document.createElement('button');
                 questionNumberElement.innerText = index + 1;
-                questionNumberElement.classList.add('bg-gray-200', 'rounded-full', 'py-1', 'px-2', 'hover:bg-gray-300', 'transition', 'duration-300');
+                questionNumberElement.classList.add('bg-gray-200', 'rounded-full', 'py-1', 'px-1', 'mr-1', 'hover:border-gray-800', 'transition', 'duration-300', 'border-2', 'border-solid', 'w-12');
                 questionNumberElement.onclick = () => jumpToQuestion(index);
                 document.getElementById('question-navigation').appendChild(questionNumberElement);
             });
@@ -258,6 +271,13 @@
         // Function to show the question
         function showQuestion() {
             const question = quizQuestions[currentQuestionIndex];
+            
+            lastSelectedQuestionCard?.classList?.remove('border-yellow-500');
+            lastSelectedQuestionCard?.classList?.add('hover:border-gray-800');
+            lastSelectedQuestionCard = document.getElementById('question-navigation').getElementsByTagName('button')[currentQuestionIndex];
+            lastSelectedQuestionCard.classList.add('border-yellow-500');
+            lastSelectedQuestionCard?.classList?.remove('hover:border-gray-800');
+
             document.getElementById('question-number').innerText = `Question ${currentQuestionIndex + 1} of ${quizQuestions.length}`;
             document.getElementById('question-code').innerText = question.QuestionCode;
             document.getElementById('question-text').innerText = question.Question;
@@ -280,13 +300,15 @@
             var correctAnswer = quizQuestions[currentQuestionIndex].correctAnswer;
             quizQuestions[currentQuestionIndex].selectedAnswer = answer; // Track selected answer
             highlightAnswers();
+
             var questionButton = document.getElementById('question-navigation').getElementsByTagName('button')[currentQuestionIndex];
-            questionButton.classList.remove('border-red-500', 'bg-red-500', 'border-green-500', 'bg-green-500',);
+            questionButton.classList.remove('bg-red-500', 'bg-green-500', 'border-yellow-500');
+
             if (correctAnswer === answer) {
-                questionButton.classList.add('border-green-500', 'bg-green-500');
+                questionButton.classList.add('bg-green-500');
             }
             else {
-                questionButton.classList.add('border-red-500', 'bg-red-500');
+                questionButton.classList.add('bg-red-500');
             }
 
             if (currentQuestionIndex < quizQuestions.length - 1) {
@@ -297,8 +319,10 @@
         function highlightAnswers() {
             var selectedAnswer = quizQuestions[currentQuestionIndex].selectedAnswer;
             if (selectedAnswer == '') return;
+
             var button = Array.from(document.getElementById('answers').getElementsByTagName('button')).find(btn => btn.innerHTML === selectedAnswer);
             button.classList.remove('border-red-500', 'bg-red-500', 'border-green-500', 'bg-green-500', 'border-gray-500', 'hover:bg-gray-500');
+
             if (selectedAnswer != quizQuestions[currentQuestionIndex].correctAnswer) {
                 button.classList.add('border-red-500', 'bg-red-500');
             } else {
@@ -397,23 +421,6 @@
                 [array[i], array[j]] = [array[j], array[i]];
             }
             return array;
-        }
-
-        // Helper function to fetch JSON data
-        function getJSON(url, callback) {
-            const xhr = new XMLHttpRequest();
-            xhr.open('GET', url, true);
-            xhr.onload = function () {
-                if (xhr.status >= 200 && xhr.status < 300) {
-                    callback(null, JSON.parse(xhr.responseText));
-                } else {
-                    callback(xhr.statusText);
-                }
-            };
-            xhr.onerror = function () {
-                callback(xhr.statusText);
-            };
-            xhr.send();
         }
     </script>
 </body>
