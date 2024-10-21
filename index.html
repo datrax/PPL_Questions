@@ -272,7 +272,7 @@
             quizQuestions.forEach((question, index) => {
                 const questionNumberElement = document.createElement('button');
                 questionNumberElement.innerText = index + 1;
-                questionNumberElement.classList.add('bg-gray-200', 'rounded-full', 'py-1', 'px-1', 'mr-1', 'hover:border-gray-800', 'transition', 'duration-300', 'border-2', 'border-solid', 'w-12');
+                questionNumberElement.classList.add('bg-gray-200', 'rounded-full', 'py-1', 'px-1', 'mr-1', 'hover:border-gray-800', 'transition', 'duration-300', 'border-2', 'border-solid', 'border-gray-200', 'w-12');
                 if (question.selectedAnswer) {
                     if (question.Answer1 == question.selectedAnswer) {
                         questionNumberElement.classList.add('bg-green-500');
