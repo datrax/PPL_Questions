@@ -53,7 +53,7 @@
             border-radius: 50%;
         }
 
-        
+
         .eighty-percent-height {
             max-height: 80vh;
         }
@@ -137,19 +137,23 @@
     </div>
 
     <!-- Quiz Screen -->
-    <div id="quiz-screen" class="container mx-auto p-5 bg-white rounded-lg shadow-md inactive flex">
+    <div id="quiz-screen" class="lg:container mx-auto p-5 bg-white rounded-lg shadow-md inactive flex">
         <!-- Sidebar for Question Navigation -->
         <div class="w-3/12 p-4 border-r border-gray-300">
-            <h2 class="text-lg font-semibold mb-4">Questions</h2>
             <div id="question-navigation" class="space-y-2 eighty-percent-height overflow-auto">
                 <!-- Dynamic question numbers will be added here -->
             </div>
+            <div class="w-full flex justify-between mt-4">
             <button id="home-btn"
                 class="mt-4 block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300"
                 onclick="returnToHome()">Home</button>
+            <button id="home-btn"
+                class="mt-4 block bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 transition duration-300"
+                onclick="resetAnswers()">Reset All</button>
+            </div>
         </div>
 
-        <div class="w-8/12 p-4">
+        <div class="w-9/12 p-4">
             <h1 id="selected-category-name" class="text-xl text-center mb-2 font-semibold"></h1>
             <h1 id="question-code" class="text-2xl text-center mb-4"></h1>
             <h1 id="question-number" class="text-2xl text-center mb-4"></h1>
@@ -164,7 +168,7 @@
                     onclick="goBack()">Back</button>
                 <button id="next-btn"
                     class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 transition duration-300"
-                    onclick="nextQuestion()">Next</button>
+                    onclick="nextButton()">Next</button>
             </div>
         </div>
     </div>
@@ -199,6 +203,7 @@
         let selectedCategoryName = '';
         let learnMode = true;
         let lastSelectedQuestionCard = null;
+        let hasSwitched = false;
 
 
         const modeToggle = document.getElementById('mode-toggle');
@@ -225,8 +230,8 @@
             .catch(err => {
                 alert('Something went wrong: ' + err);
             });
-            
-            
+
+
         // Start quiz based on selected category
         document.querySelectorAll('.category-btn').forEach(button => {
             button.addEventListener('click', () => {
@@ -240,38 +245,66 @@
 
         // Function to start the quiz
         function startQuiz(selectedCategory, numberOfQuestions) {
+            hasSwitched = false;
             document.getElementById('main-screen').classList.add('inactive');
             document.getElementById('quiz-screen').classList.remove('inactive');
             document.getElementById('selected-category-name').innerText = selectedCategoryName;
             document.getElementById('question-navigation').innerHTML = '';
 
-            // Filter questions based on selected category
-            quizQuestions = learnMode ? questions.filter(q => q.QuestionCode.startsWith(selectedCategory)) :
-                shuffleArray(questions.filter(q => q.QuestionCode.startsWith(selectedCategory))).slice(0, numberOfQuestions);
-            
+            if (learnMode) {
+                quizQuestions = JSON.parse(localStorage.getItem(selectedCategoryName));
+                if (!quizQuestions) {
+                    quizQuestions = questions.filter(q => q.QuestionCode.startsWith(selectedCategory));
+                    saveCategoryQuestions();
+                }
+
+                currentQuestionIndex = localStorage.getItem(selectedCategoryName + "-index") ?? 0;
+            }
+            else {
+                quizQuestions =
+                    shuffleArray(questions.filter(q => q.QuestionCode.startsWith(selectedCategory))).slice(0, numberOfQuestions);
+                quizQuestions.forEach((question, index) => {
+                    question.selectedAnswer = '';
+                });
+                currentQuestionIndex = 0;
+            }
             // Populate the question navigation sidebar
             quizQuestions.forEach((question, index) => {
-                question.correctAnswer = question.Answer1;
-                question.selectedAnswer = '';
                 const questionNumberElement = document.createElement('button');
                 questionNumberElement.innerText = index + 1;
                 questionNumberElement.classList.add('bg-gray-200', 'rounded-full', 'py-1', 'px-1', 'mr-1', 'hover:border-gray-800', 'transition', 'duration-300', 'border-2', 'border-solid', 'w-12');
+                if (question.selectedAnswer) {
+                    if (question.Answer1 == question.selectedAnswer) {
+                        questionNumberElement.classList.add('bg-green-500');
+                    }
+                    else {
+                        questionNumberElement.classList.add('bg-red-500');
+                    }
+                }
                 questionNumberElement.onclick = () => jumpToQuestion(index);
                 document.getElementById('question-navigation').appendChild(questionNumberElement);
             });
 
             // Start the first question
-            currentQuestionIndex = 0;
+
             showQuestion();
             if (!learnMode) {
                 startTimer();
             }
         }
 
+        function saveCategoryQuestions() {
+            if (!learnMode) return;
+            localStorage.setItem(selectedCategoryName, JSON.stringify(quizQuestions));
+            localStorage.setItem(selectedCategoryName + "-index", currentQuestionIndex);
+        }
+
         // Function to show the question
         function showQuestion() {
+            saveCategoryQuestions();
+
             const question = quizQuestions[currentQuestionIndex];
-            
+
             lastSelectedQuestionCard?.classList?.remove('border-yellow-500');
             lastSelectedQuestionCard?.classList?.add('hover:border-gray-800');
             lastSelectedQuestionCard = document.getElementById('question-navigation').getElementsByTagName('button')[currentQuestionIndex];
@@ -297,14 +330,14 @@
 
         // Function to select an answer
         function selectAnswer(answer) {
-            var correctAnswer = quizQuestions[currentQuestionIndex].correctAnswer;
+            var Answer1 = quizQuestions[currentQuestionIndex].Answer1;
             quizQuestions[currentQuestionIndex].selectedAnswer = answer; // Track selected answer
             highlightAnswers();
 
             var questionButton = document.getElementById('question-navigation').getElementsByTagName('button')[currentQuestionIndex];
             questionButton.classList.remove('bg-red-500', 'bg-green-500', 'border-yellow-500');
 
-            if (correctAnswer === answer) {
+            if (Answer1 === answer) {
                 questionButton.classList.add('bg-green-500');
             }
             else {
@@ -312,7 +345,8 @@
             }
 
             if (currentQuestionIndex < quizQuestions.length - 1) {
-                setTimeout(nextQuestion, 1500);
+                hasSwitched = false;
+                setTimeout(autoNextClick, 1500);
             }
         }
 
@@ -323,7 +357,7 @@
             var button = Array.from(document.getElementById('answers').getElementsByTagName('button')).find(btn => btn.innerHTML === selectedAnswer);
             button.classList.remove('border-red-500', 'bg-red-500', 'border-green-500', 'bg-green-500', 'border-gray-500', 'hover:bg-gray-500');
 
-            if (selectedAnswer != quizQuestions[currentQuestionIndex].correctAnswer) {
+            if (selectedAnswer != quizQuestions[currentQuestionIndex].Answer1) {
                 button.classList.add('border-red-500', 'bg-red-500');
             } else {
                 button.classList.add('border-green-500', 'bg-green-500');
@@ -332,7 +366,8 @@
         }
 
         // Function to move to the next question
-        function nextQuestion() {
+        function nextButton() {
+            hasSwitched = true;
             if (currentQuestionIndex < quizQuestions.length - 1) {
                 currentQuestionIndex++;
                 showQuestion();
@@ -341,12 +376,33 @@
             }
         }
 
+        // Function to move to the next question
+        function autoNextClick() {
+            if (hasSwitched) {
+                hasSwitched = false;
+                return;
+            }
+            else {
+                currentQuestionIndex++;
+                showQuestion();
+            }
+        }
+
+        function resetAnswers(){
+            quizQuestions.forEach((question, index) => {
+                    question.selectedAnswer = '';
+                });
+            currentQuestionIndex = 0;
+            saveCategoryQuestions();
+            startQuiz();
+        }
+
         // Function to finish the quiz
         function finishQuiz() {
             clearInterval(timer);
             document.getElementById('quiz-screen').classList.add('inactive');
             document.getElementById('result-screen').classList.remove('inactive');
-            const correctCount = quizQuestions.reduce((count, question) => count + (question.selectedAnswer === question.correctAnswer ? 1 : 0), 0);
+            const correctCount = quizQuestions.reduce((count, question) => count + (question.selectedAnswer === question.Answer1 ? 1 : 0), 0);
             document.getElementById('score').innerText = ((correctCount / quizQuestions.length) * 100).toFixed(2);
             generateReviewTable();
         }
@@ -357,13 +413,13 @@
             reviewTable.innerHTML = '';
 
             quizQuestions.forEach((question, index) => {
-                var isCorrect = question.selectedAnswer == question.correctAnswer;
+                var isCorrect = question.selectedAnswer == question.Answer1;
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td class="border border-gray-300 px-1 py-2">${question.QuestionCode}</td>
                     <td class="border border-gray-300 px-2 py-2">${question.Question}</td>
                     <td class="border border-gray-300 px-3 py-2 ${isCorrect ? 'bg-green-500' : 'bg-red-500'}">${question.selectedAnswer || 'N/A'}</td>
-                    <td class="border border-gray-300 px-3 py-2">${isCorrect ? '' : question.correctAnswer}</td>
+                    <td class="border border-gray-300 px-3 py-2">${isCorrect ? '' : question.Answer1}</td>
                 `;
                 reviewTable.appendChild(row);
             });
@@ -409,6 +465,7 @@
 
         // Function to jump to a specific question
         function jumpToQuestion(index) {
+            hasSwitched = true;
             currentQuestionIndex = index;
             showQuestion();
         }
