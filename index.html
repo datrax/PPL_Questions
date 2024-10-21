@@ -144,12 +144,12 @@
                 <!-- Dynamic question numbers will be added here -->
             </div>
             <div class="w-full flex justify-between mt-4">
-            <button id="home-btn"
-                class="mt-4 block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300"
-                onclick="returnToHome()">Home</button>
-            <button id="home-btn"
-                class="mt-4 block bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 transition duration-300"
-                onclick="resetAnswers()">Reset All</button>
+                <button id="home-btn"
+                    class="mt-4 block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300"
+                    onclick="returnToHome()">Home</button>
+                <button id="home-btn"
+                    class="mt-4 block bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 transition duration-300"
+                    onclick="resetAnswers()">Reset All</button>
             </div>
         </div>
 
@@ -330,14 +330,14 @@
 
         // Function to select an answer
         function selectAnswer(answer) {
-            var Answer1 = quizQuestions[currentQuestionIndex].Answer1;
+            var correctAnswer = quizQuestions[currentQuestionIndex].Answer1;
             quizQuestions[currentQuestionIndex].selectedAnswer = answer; // Track selected answer
             highlightAnswers();
 
             var questionButton = document.getElementById('question-navigation').getElementsByTagName('button')[currentQuestionIndex];
             questionButton.classList.remove('bg-red-500', 'bg-green-500', 'border-yellow-500');
 
-            if (Answer1 === answer) {
+            if (correctAnswer === answer) {
                 questionButton.classList.add('bg-green-500');
             }
             else {
@@ -355,12 +355,12 @@
             if (selectedAnswer == '') return;
 
             var button = Array.from(document.getElementById('answers').getElementsByTagName('button')).find(btn => btn.innerHTML === selectedAnswer);
-            button.classList.remove('border-red-500', 'bg-red-500', 'border-green-500', 'bg-green-500', 'border-gray-500', 'hover:bg-gray-500');
+            button.classList.remove('bg-red-500', 'bg-green-500', 'hover:bg-gray-500');
 
             if (selectedAnswer != quizQuestions[currentQuestionIndex].Answer1) {
-                button.classList.add('border-red-500', 'bg-red-500');
+                button.classList.add('bg-red-500');
             } else {
-                button.classList.add('border-green-500', 'bg-green-500');
+                button.classList.add('bg-green-500');
             }
 
         }
@@ -388,10 +388,10 @@
             }
         }
 
-        function resetAnswers(){
+        function resetAnswers() {
             quizQuestions.forEach((question, index) => {
-                    question.selectedAnswer = '';
-                });
+                question.selectedAnswer = '';
+            });
             currentQuestionIndex = 0;
             saveCategoryQuestions();
             startQuiz();
