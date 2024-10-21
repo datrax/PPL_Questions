@@ -139,17 +139,17 @@
     <!-- Quiz Screen -->
     <div id="quiz-screen" class="container mx-auto p-5 bg-white rounded-lg shadow-md inactive flex">
         <!-- Sidebar for Question Navigation -->
-        <div class="w-2/12 p-4 border-r border-gray-300">
+        <div class="w-3/12 p-4 border-r border-gray-300">
             <h2 class="text-lg font-semibold mb-4">Questions</h2>
             <div id="question-navigation" class="space-y-2 eighty-percent-height overflow-auto">
                 <!-- Dynamic question numbers will be added here -->
             </div>
             <button id="home-btn"
-                class="mt-4 mx-auto block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300"
-                onclick="returnToHome()">Return to Home</button>
+                class="mt-4 block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300"
+                onclick="returnToHome()">Home</button>
         </div>
 
-        <div class="w-10/12 p-4">
+        <div class="w-8/12 p-4">
             <h1 id="selected-category-name" class="text-xl text-center mb-2 font-semibold"></h1>
             <h1 id="question-code" class="text-2xl text-center mb-4"></h1>
             <h1 id="question-number" class="text-2xl text-center mb-4"></h1>
@@ -164,7 +164,7 @@
                     onclick="goBack()">Back</button>
                 <button id="next-btn"
                     class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 transition duration-300"
-                    onclick="nextQuestion()">Next Question</button>
+                    onclick="nextQuestion()">Next</button>
             </div>
         </div>
     </div>
